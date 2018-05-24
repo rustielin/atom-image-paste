@@ -18,6 +18,9 @@ attachEvent = ->
       else
         cursor = atom.workspace.getActiveTextEditor()
 
+        if !checkFiletype(cursor.getPath())
+          return
+
         if atom.config.get 'atom-image-paste.use_subfolder'
             subFolderToUse = atom.config.get 'atom-image-paste.subfolder'
             if subFolderToUse != ""
@@ -28,24 +31,31 @@ attachEvent = ->
                     # fs.mkdirSync assetsDirectory
                     shell.mkdir("-p", assetsDirectory)
 
-                    
-
         else
+            subFolderToUse = ""
             curDirectory = dirname(cursor.getPath())
             assetsDirectory = curDirectory
 
-        fileName = "img-paste-#{formatDate(new Date())}.png"
+        fileName = "atom-image-paste-#{formatDate(new Date())}.png"
         fullName = join(assetsDirectory, fileName)
 
         fs.writeFile join(assetsDirectory, fileName), img.toPng(), ->
           console.info 'Ok! Image is saved'
 
-        cursor.insertText "![#{fullName}](#{fullName})"
+        printName = join(subFolderToUse, fileName)
+        # switch on filetype
+        if cursor.getPath()
+            if cursor.getPath().substr(-3) == '.md'
+                cursor.insertText "![#{printName}](#{printName})"
+            else if cursor.getPath().substr(-4) == '.tex'
+                cursor.insertText "\\includegraphics[](#{printName})"
 
 forceTwoDigits = (val) ->
   if val < 10
     return "0#{val}"
   return val
+
+  
 
 formatDate = (date) ->
   year = date.getFullYear()
@@ -56,3 +66,6 @@ formatDate = (date) ->
   second = forceTwoDigits(date.getSeconds())
   ms = forceTwoDigits(date.getMilliseconds())
   return "#{year}#{month}#{day}#{hour}#{minute}#{second}#{ms}"
+
+checkFiletype = (name) ->
+    return name.substr(-3) == '.md' or name.substr(-4) == '.tex'

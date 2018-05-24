@@ -1,7 +1,7 @@
 {
   "name": "atom-image-paste",
   "main": "./lib/atom-image-paste",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A short description of your package",
   "keywords": [
   ],
