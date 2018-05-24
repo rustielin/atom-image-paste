@@ -13,6 +13,42 @@
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
-  "dependencies": {
+
+  "configSchema": {
+    "use_subfolder": {
+      "type": "boolean",
+      "default": false,
+      "title": "Save images in subfolder",
+      "description": "If checked the images will be saved in a subfolder. You can either set your own folder or choose from the presets",
+      "order": 10
+    },
+    "subfolder": {
+      "type": "string",
+      "default": "res/img",
+      "title": "Subfolder  for the images",
+      "description": "",
+      "order": 20
+    },
+    "allLettersLowerCase": {
+      "type": "boolean",
+      "default": true,
+      "title": "All Letters lowercase",
+      "description": "If checked the first letter of the filename will always be lowercase",
+      "order": 120
+    },
+    "spacesToUnderlines": {
+      "type": "boolean",
+      "default": true,
+      "title": "Spaces to underline",
+      "description": "If checked words where the second letter is uppercase won't be put in the normal camelCase. This means all letters being Uppercase will stay that way if the second letter is Uppercase",
+      "order": 110
+    },
+    "automaticCamelCase": {
+      "type": "boolean",
+      "default": true,
+      "title": "Automatic camelCase",
+      "description": "The name of the imagefile will automatically be put into to camelCase. The first letter afert a space will be written in uppercas. The first letter of the filename will depend on the setting `First Letter`",
+      "order": 100
+    }
   }
 }

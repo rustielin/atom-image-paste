@@ -2,7 +2,7 @@
   "context-menu": {
     "atom-text-editor": [
       {
-        "label": "Toggle atom-image-paste",
+        "label": "Paste image",
         "command": "atom-image-paste:toggle"
       }
     ]
@@ -15,7 +15,7 @@
           "label": "atom-image-paste",
           "submenu": [
             {
-              "label": "Toggle",
+              "label": "Paste image",
               "command": "atom-image-paste:toggle"
             }
           ]

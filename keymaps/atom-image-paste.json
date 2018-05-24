@@ -1,5 +1,5 @@
 {
   "atom-workspace": {
-    "ctrl-alt-o": "atom-image-paste:toggle"
+    "ctrl-alt-shift-v": "atom-image-paste:toggle"
   }
 }
