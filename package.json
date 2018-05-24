@@ -2,13 +2,13 @@
   "name": "atom-image-paste",
   "main": "./lib/atom-image-paste",
   "version": "1.0.0",
-  "description": "A short description of your package",
+  "description": "Pastes images from your clipboard into atom. Supports various filetypes and custom image directories.",
   "keywords": [
   ],
   "activationCommands": {
     "atom-workspace": "atom-image-paste:toggle"
   },
-  "repository": "https://github.com/atom/atom-image-paste",
+  "repository": "https://github.com/rustielin/atom-image-paste",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
