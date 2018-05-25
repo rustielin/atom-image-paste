@@ -27,26 +27,12 @@
       "description": "",
       "order": 20
     },
-    "allLettersLowerCase": {
+    "use_selected_text": {
       "type": "boolean",
       "default": true,
-      "title": "All Letters lowercase",
-      "description": "If checked the first letter of the filename will always be lowercase",
-      "order": 120
-    },
-    "spacesToUnderlines": {
-      "type": "boolean",
-      "default": true,
-      "title": "Spaces to underline",
-      "description": "If checked words where the second letter is uppercase won't be put in the normal camelCase. This means all letters being Uppercase will stay that way if the second letter is Uppercase",
-      "order": 110
-    },
-    "automaticCamelCase": {
-      "type": "boolean",
-      "default": true,
-      "title": "Automatic camelCase",
-      "description": "The name of the imagefile will automatically be put into to camelCase. The first letter afert a space will be written in uppercas. The first letter of the filename will depend on the setting `First Letter`",
-      "order": 100
+      "title": "Use selected text as file name",
+      "description": "If checked the currently selected text will be the filename, along with the current date",
+      "order": 10
     }
   }
 }

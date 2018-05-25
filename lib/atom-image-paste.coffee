@@ -3,6 +3,9 @@ shell = require 'shelljs';
 fs = require 'fs'
 clipboard = require 'clipboard'
 
+
+filePattern = /// ^[0-9a-zA-Z ... ]+$ ///i
+
 module.exports =
   activate: (state)->
     attachEvent()
@@ -18,8 +21,6 @@ attachEvent = ->
       else
         cursor = atom.workspace.getActiveTextEditor()
 
-        if !checkFiletype(cursor.getPath())
-          return
 
         if atom.config.get 'atom-image-paste.use_subfolder'
             subFolderToUse = atom.config.get 'atom-image-paste.subfolder'
@@ -36,26 +37,42 @@ attachEvent = ->
             curDirectory = dirname(cursor.getPath())
             assetsDirectory = curDirectory
 
-        fileName = "atom-image-paste-#{formatDate(new Date())}.png"
+        editor = atom.workspace.getActiveTextEditor()
+        selection = editor.getLastSelection()
+        selectionRange = selection.getBufferRange()
+        text = selection.getText()
+
+        imgName = "atom-img-paste"
+
+        # makes a file of selected text
+        if atom.config.get 'atom-image-paste.use_selected_text'
+            if text.match filePattern
+                imgName = text
+
+        fileName = "#{formatDate(new Date())}-" + imgName + ".png"
         fullName = join(assetsDirectory, fileName)
 
         fs.writeFile join(assetsDirectory, fileName), img.toPng(), ->
-          console.info 'Ok! Image is saved'
+          console.info 'Image saved'
 
         printName = join(subFolderToUse, fileName)
+
         # switch on filetype
         if cursor.getPath()
             if cursor.getPath().substr(-3) == '.md'
                 cursor.insertText "![#{printName}](#{printName})"
             else if cursor.getPath().substr(-4) == '.tex'
                 cursor.insertText "\\includegraphics[](#{printName})"
+            else # probably find a better default than this
+                cursor.insertText "![#{printName}](#{printName})"
+                console.info 'Filetype not supported'
 
 forceTwoDigits = (val) ->
   if val < 10
     return "0#{val}"
   return val
 
-  
+
 
 formatDate = (date) ->
   year = date.getFullYear()
@@ -67,5 +84,6 @@ formatDate = (date) ->
   ms = forceTwoDigits(date.getMilliseconds())
   return "#{year}#{month}#{day}#{hour}#{minute}#{second}#{ms}"
 
+# disabled right now since we want to insert image with default md
 checkFiletype = (name) ->
     return name.substr(-3) == '.md' or name.substr(-4) == '.tex'
